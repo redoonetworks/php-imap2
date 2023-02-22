@@ -73,14 +73,14 @@ class Errors
         trigger_error($message, E_USER_WARNING);
     }
 
-    public static function invalidImapConnection($backtrace, $depth, $return)
+    public static function invalidImapConnection($backtrace, $depth, $return = null)
     {
         $warning = 'Invalid IMAP connection parameter for '.$backtrace[$depth]['function'].'() '
                  . 'at '.$backtrace[$depth]['file']. ' on line '.$backtrace[$depth]['line'].'. Source code';
 
         trigger_error($warning, E_USER_WARNING);
 
-        return $return;
+        return $return ?? $warning;
     }
 
     public static function couldNotOpenStream($mailbox, $backtrace, $depth)
