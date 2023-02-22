@@ -439,6 +439,11 @@ class ImapClient
      */
     protected function closeSocket()
     {
+        if(is_null($this->fp))
+        {
+            return;
+        }
+        
         @fclose($this->fp);
         $this->fp = null;
     }
