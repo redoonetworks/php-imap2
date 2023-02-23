@@ -23,15 +23,15 @@ class Mailbox
             $client = $imap->getClient();
             $status = $client->status($imap->getMailboxName(), ['MESSAGES', 'RECENT']);
 
-            if(is_array($status)) {
-                return (object) [
-                    'Date' => date('D, j M Y G:i:s').' +0000 (UTC)',
-                    'Driver' => 'imap',
-                    'Mailbox' => $imap->getMailbox(),
-                    'Nmsgs' => intval($status['MESSAGES']),
-                    'Recent' => intval($status['RECENT']),
-                ];
-            }
+            
+            return (object) [
+                'Date' => date('D, j M Y G:i:s').' +0000 (UTC)',
+                'Driver' => 'imap',
+                'Mailbox' => $imap->getMailbox(),
+                'Nmsgs' =>  intval(is_array($status) ? $status['MESSAGES'] : ($client->data['EXISTS'] ?? 0)),
+                'Recent' => intval(is_array($status) ? $status['RECENT']   : ($client->data['RECENT'] ?? 0)),
+            ];
+            
 
         } elseif (IMAP2_RETROFIT_MODE && is_resource($imap) && get_resource_type($imap) == 'imap') {
             return imap_check($imap);
