@@ -52,7 +52,7 @@ class Message
             $client = $imap->getClient();
             #$client->setDebug(true);
 
-            $result = $client->search($imap->getMailboxName(), $criteria, $flags & SE_UID);
+            $result = $client->search($imap->getMailboxName(), $searchCriteria, $flags & SE_UID);
 
             if (empty($result->count())) {
                 return false;
