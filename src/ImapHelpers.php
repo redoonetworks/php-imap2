@@ -51,6 +51,7 @@ class ImapHelpers
 
         $id = [];
         foreach ($messages as $message) {
+            if($message->uid != $messageUid) continue;
             $id[] = $message->id;
         }
 
