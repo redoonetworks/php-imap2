@@ -20,7 +20,9 @@ use Javanile\Imap2\Timeout;
 use Javanile\Imap2\Functions;
 
 define('IMAP2_CHARSET', 'UTF-8');
-define('IMAP2_RETROFIT_MODE', function_exists('imap_open'));
+if(!defined('IMAP2_RETROFIT_MODE')) {
+    define('IMAP2_RETROFIT_MODE', function_exists('imap_open'));
+}
 
 if (!defined('NIL')) {
     define('NIL', 0);
@@ -270,6 +272,9 @@ if (!function_exists('imap2_reopen')) {
 
         return Connection::reopen($imap, $mailbox, $flags, $retries);
     }
+}
+if(!function_exists('imap2_checkresource')) {
+
 }
 
 /**
