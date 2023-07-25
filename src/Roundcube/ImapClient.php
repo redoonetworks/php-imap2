@@ -47,6 +47,7 @@ class ImapClient
     public $result;
     public $resultcode;
     public $selected;
+    public $user;
     public $data = array();
     public $flags = array(
         'SEEN'     => '\\Seen',
