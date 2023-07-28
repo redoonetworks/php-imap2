@@ -909,6 +909,8 @@ class ImapClient
      * @param string $user     User name
      * @param string $password Password
      * @param array  $options  Connection and class options
+     * 
+     * @throws NoAuthenticationMethod When no supported Authentication method was found
      *
      * @return bool True on success, False on failure
      */
@@ -972,10 +974,16 @@ class ImapClient
                 array_unshift($all_methods, 'GSSAPI');
             }
 
+            $found = false;
             foreach ($all_methods as $auth_method) {
                 if (in_array($auth_method, $auth_methods)) {
+                    $found = true;
                     break;
                 }
+            }
+            
+            if($found == false) {
+                throw new NoAuthenticationMethod('No supported authentication method found');
             }
 
             // Prefer LOGIN over AUTHENTICATE LOGIN for performance reasons

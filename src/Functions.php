@@ -40,6 +40,10 @@ class Functions
         if (in_array('ssl', $mailboxParts['path'])) {
             return 'ssl';
         }
+        
+        if (in_array('tls', $mailboxParts['path'])) {
+            return 'tls';
+        }        
 
         return false;
     }
